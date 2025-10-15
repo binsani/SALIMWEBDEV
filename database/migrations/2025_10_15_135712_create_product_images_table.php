@@ -13,7 +13,15 @@ return new class extends Migration
     {
         Schema::create('product_images', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->string('image_path', 500);
+            $table->boolean('is_primary')->default(false);
+            $table->integer('display_order')->default(0);
             $table->timestamps();
+
+            $table->index('product_id');
+            $table->index('is_primary');
+            $table->index('display_order');
         });
     }
 
